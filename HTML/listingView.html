@@ -45,9 +45,8 @@
         }
 
         #wrapper .node {
-            float: right;
+			text-align:center;
             margin-right: 70px;
-            margin-left: 70px;
             margin-bottom: 50px;
 
         }
@@ -143,6 +142,7 @@
             overflow: scroll;
             overflow-x: hidden;
             text-overflow: ellipsis;
+			text-align:left;
         /* or overflow:hidden */
             margin-bottom: 30px;
             color: #272727;
@@ -231,7 +231,7 @@
     function getUsername(userid) {//loads usernames
         $.ajax({
             async: false,
-            url: 'http://25.44.126.168:81/users/' + userid,
+            url: 'http://yeet:81/users/' + userid,
             headers: {
                 'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
             },
@@ -252,7 +252,7 @@
 
             $.ajax({//call ajax to like and update db
                 async: false,
-                url: 'http://25.44.126.168:81/like/' + id,
+                url: 'http://yeet:81/like/' + id,
                 type: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -271,7 +271,7 @@
 
             $.ajax({//call ajax to like and update db
                 async: false,
-                url: 'http://25.44.126.168:81/dislike/' + id,
+                url: 'http://yeet:81/dislike/' + id,
                 type: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -294,7 +294,7 @@
         if (AccessToken == null) {
             $.ajax({
                 async: false,
-                url: 'http://25.44.126.168:81/listings/' + localStorage.getItem('listid'),
+                url: 'http://yeet:81/listings/' + localStorage.getItem('listid'),
                 type: 'GET',
                 success: function (response) {
                     callback1(response)
@@ -306,7 +306,7 @@
             })
             $.ajax({
                 async: false,
-                url: 'http://25.44.126.168:81/likes/listing/' + localStorage.getItem('listid'),
+                url: 'http://yeet:81/likes/listing/' + localStorage.getItem('listid'),
                 type: 'GET',
                 success: function (response) {
                     callback3(response)
@@ -319,8 +319,8 @@
            
             $(".active").append("Log In")
             $('.nav').empty()
-            $("#PFP").attr("src", "http://25.44.126.168:81/Pic/Placehoolder.png");
-            $(".listingImg").attr("src", 'http://25.44.126.168:81/listings/photo/' + data1[0].id)
+            $("#PFP").attr("src", "http://yeet:81/Pic/Placehoolder.png");
+            $(".listingImg").attr("src", 'http://yeet:81/listings/photo/' + data1[0].id)
             $('.title').append(data1[0].title)
             $('.description').append(data1[0].description)
             $('.author').append(data2)
@@ -332,7 +332,7 @@
         } else {
             $.ajax({
                 async: false,
-                url: 'http://25.44.126.168:81/decodeToken',
+                url: 'http://yeet:81/decodeToken',
                 type: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -347,7 +347,7 @@
             })
             $.ajax({
                 async: false,
-                url: 'http://25.44.126.168:81/listings/' + localStorage.getItem('listid'),
+                url: 'http://yeet:81/listings/' + localStorage.getItem('listid'),
                 type: 'GET',
                 success: function (response) {
                     callback1(response)
@@ -359,7 +359,7 @@
             })
             $.ajax({
                 async: false,
-                url: 'http://25.44.126.168:81/users/' + data.user_id,
+                url: 'http://yeet:81/users/' + data.user_id,
                 type: 'GET',
                 success: function (response) {
                     callback4(response)
@@ -371,7 +371,7 @@
             })
             $.ajax({
                 async: false,
-                url: 'http://25.44.126.168:81/likes/listing/' + localStorage.getItem('listid'),
+                url: 'http://yeet:81/likes/listing/' + localStorage.getItem('listid'),
                 type: 'GET',
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -386,14 +386,14 @@
             })
             var Submit = true;
 
-            $("#PFP").attr("src", "http://25.44.126.168:81/users/PFP/" + data.user_id + "/");
+            $("#PFP").attr("src", "http://yeet:81/users/PFP/" + data.user_id + "/");
             $("#heart").attr("src", LoadLike(data3, data))
             $(".active").append(data4[0].username)
             getUsername(data1[0].fk_user_id)
             $('.active').click(function (event) {
-                window.location = "http://dongen:81/profile";
+                window.location = "http://yeet:80/profile";
             })
-            $(".listingImg").attr("src", 'http://25.44.126.168:81/listings/photo/' + data1[0].id)
+            $(".listingImg").attr("src", 'http://yeet:81/listings/photo/' + data1[0].id)
             $('.title').append(data1[0].title)
             
             $('.description').append(data1[0].description)
@@ -404,7 +404,7 @@
                 $('#AddOffer').empty()
                 $('#AddOffer').append("Edit Listing")
                 $('#AddOffer').click(function (event) {
-                    window.location = "http://dongen:81/EditListing"; //Link to edit listing
+                    window.location = "http://yeet:80/EditListing"; //Link to edit listing
                 })
             } else {
                 $('#AddOffer').click(function (event) {//if is not author
@@ -422,7 +422,7 @@
                             console.log(data1[0].id)
                             $.ajax({
                                 async: false,
-                                url: 'http://25.44.126.168:81/listings/' + data1[0].id + '/offers/',
+                                url: 'http://yeet:81/listings/' + data1[0].id + '/offers/',
                                 type: 'POST',
                                 data: {
                                     offer: offer,
@@ -441,7 +441,7 @@
                                 },
                             })
                             alert('Offer Submitted')
-                            window.location = "http://dongen:81/listing";
+                            window.location = "http://yeet:80/listing";
                         }
                     }
                 })
@@ -453,13 +453,13 @@
 <body>
     <div class="topnav">
         <img id="PFP" src="" alt="Profile Picture" style="width: 48px;height:48px;margin-right:3px;margin-left:3px">
-        <a class="active" href="http://dongen:81/profile"></a>
-        <a class='nav' href="http://dongen:81/login" onclick="localStorage.removeItem('AccessToken')" style="float:right"> Log Out</a>
-        <a class='nav' id="Listing" href="http://dongen:81/SelfListing">My Listings</a>
-        <a class='nav' href="http://dongen:81/Offers">My Offers</a>
-        <a class='nav' href="http://dongen:81/LikedListings">Liked posts</a>
-        <a href="http://dongen:81/listing" style="margin-left:10px;background-color:#9d6600">Listings</a>
-        <a href="http://dongen:81/NewListing" >+</a>
+        <a class="active" href="http://yeet:80/profile"></a>
+        <a class='nav' href="http://yeet:80/login" onclick="localStorage.removeItem('AccessToken')" style="float:right"> Log Out</a>
+        <a class='nav' id="Listing" href="http://yeet:80/SelfListing">My Listings</a>
+        <a class='nav' href="http://yeet:80/Offers">My Offers</a>
+        <a class='nav' href="http://yeet:80/LikedListings">Liked posts</a>
+        <a href="http://yeet:80/listing" style="margin-left:10px;background-color:#9d6600">Listings</a>
+        <a href="http://yeet:80/NewListing" >+</a>
         <a class='nav' href="#Contact" style="float:right">Contact us</a>
     </div>
     <div id="wrapper" style="padding-left:16px;padding-top:30px;justify-content: center">

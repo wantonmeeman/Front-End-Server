@@ -230,7 +230,7 @@
     function getUsername(userid) {//loads usernames
         $.ajax({
             async: false,
-            url: 'http://25.44.126.168:81/users/' + userid,//add array
+            url: 'http://yeet:81/users/' + userid,//add array
             type: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -249,7 +249,7 @@
         if ($("#heartid" + z).attr("src") == `./Pic/heart.png`) {
             $.ajax({//call ajax to like and update db
                 async: false,
-                url: 'http://25.44.126.168:81/like/' + id,
+                url: 'http://yeet:81/like/' + id,
                 type: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -268,7 +268,7 @@
 
             $.ajax({//call ajax to like and update db
                 async: false,
-                url: 'http://25.44.126.168:81/dislike/' + id,
+                url: 'http://yeet:81/dislike/' + id,
                 type: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -289,17 +289,17 @@
     function GoToListing(id) {
         localStorage.removeItem('listid')
         localStorage.setItem('listid', id)
-        window.location = "http://dongen:81/Listingview"
+        window.location = "http://yeet:80/Listingview"
         console.log(localStorage.getItem('listid'))
     }
     $(document).ready(function () {
         var AccessToken = localStorage.getItem('AccessToken');
         if (AccessToken == null) {
-            window.location = "http://dongen:81/ErrorPage"//link this to an error page
+            window.location = "http://yeet:80/ErrorPage"//link this to an error page
         }
         $.ajax({
             async: false,
-            url: 'http://25.44.126.168:81/decodeToken',/*val()->value*/
+            url: 'http://yeet:81/decodeToken',/*val()->value*/
             type: 'POST',
             headers: {
                 'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -317,7 +317,7 @@
         })
         $.ajax({
             async: false,
-            url: 'http://25.44.126.168:81/listings/',//add array
+            url: 'http://yeet:81/listings/',//add array
             type: 'GET',
             headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -332,7 +332,7 @@
         })
         $.ajax({
             async: false,
-            url: 'http://25.44.126.168:81/users/' + data.user_id,
+            url: 'http://yeet:81/users/' + data.user_id,
             type: 'GET',
             headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -347,7 +347,7 @@
         })
         $.ajax({
             async: false,
-            url: 'http://25.44.126.168:81/likes/user/' + data.user_id,
+            url: 'http://yeet:81/likes/user/' + data.user_id,
             type: 'GET',
             headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -360,13 +360,13 @@
                 console.log(errorThrown)
             },
         })
-        $("#PFP").attr("src", "http://25.44.126.168:81/users/PFP/" + data.user_id + "/");
+        $("#PFP").attr("src", "http://yeet:81/users/PFP/" + data.user_id + "/");
         $(".active").append(data4[0].username)
         if (data3.length != 0) {
             for (var z = 0; data3.length > z; z++) {
                 getUsername(data1[data3[z].fk_listings_id - 1].fk_user_id)
                 $("#wrapper").append(
-                    "<div class='node' id='node" + data1[data3[z].fk_listings_id - 1].id + "'><a href='#' onclick='GoToListing(" + data1[data3[z].fk_listings_id - 1].id + ");return false;' class='listingLink' ><img src='http://25.44.126.168:81/listings/photo/" + data1[data3[z].fk_listings_id - 1].id + "' class='listingImg'><div class='BotWrapper'><div class='TextWrapper'><div class='title'>" + data1[data3[z].fk_listings_id - 1].title + "</div><div class='description'>" + data1[data3[z].fk_listings_id - 1].description + "</div><div class='AuthorNPrice'><div class='author'>" + data2 + "</div><div class='price'>\t$" + data1[data3[z].fk_listings_id - 1].price + "</div></div></div></a><a class='like' href='#' onclick='Like(" + data3[z].fk_listings_id + "," + z + ");return false;'><img class='heart' id='heartid" + z + "'src=" + LoadLike(data3, data3) + "></a></div>"
+                    "<div class='node' id='node" + data1[data3[z].fk_listings_id - 1].id + "'><a href='#' onclick='GoToListing(" + data1[data3[z].fk_listings_id - 1].id + ");return false;' class='listingLink' ><img src='http://yeet:81/listings/photo/" + data1[data3[z].fk_listings_id - 1].id + "' class='listingImg'><div class='BotWrapper'><div class='TextWrapper'><div class='title'>" + data1[data3[z].fk_listings_id - 1].title + "</div><div class='description'>" + data1[data3[z].fk_listings_id - 1].description + "</div><div class='AuthorNPrice'><div class='author'>" + data2 + "</div><div class='price'>\t$" + data1[data3[z].fk_listings_id - 1].price + "</div></div></div></a><a class='like' href='#' onclick='Like(" + data3[z].fk_listings_id + "," + z + ");return false;'><img class='heart' id='heartid" + z + "'src=" + LoadLike(data3, data3) + "></a></div>"
                 );
             }
         } else {
@@ -381,13 +381,13 @@
 <body>
     <div class="topnav">
         <img id="PFP" src="" alt="Profile Picture" style="width: 48px;height:48px;margin-right:3px;margin-left:3px">
-        <a class="active" href="http://dongen:81/profile"></a>
-        <a class='nav' href="http://dongen:81/login" onclick="localStorage.removeItem('AccessToken')" style="float:right"> Log Out</a>
-        <a   id="Listing" href="http://dongen:81/SelfListing">My Listings</a>
-        <a href="http://dongen:81/Offers">My Offers</a>
-        <a href="http://dongen:81/LikedListings" style="background-color:#9d6600">Liked posts</a>
-        <a href="http://dongen:81/listing" style="margin-left:10px;">Listings</a>
-        <a href="http://dongen:81/NewListing" >+</a>
+        <a class="active" href="http://yeet:80/profile"></a>
+        <a class='nav' href="http://yeet:80/login" onclick="localStorage.removeItem('AccessToken')" style="float:right"> Log Out</a>
+        <a   id="Listing" href="http://yeet:80/SelfListing">My Listings</a>
+        <a href="http://yeet:80/Offers">My Offers</a>
+        <a href="http://yeet:80/LikedListings" style="background-color:#9d6600">Liked posts</a>
+        <a href="http://yeet:80/listing" style="margin-left:10px;">Listings</a>
+        <a href="http://yeet:80/NewListing" >+</a>
         <a href="#Contact" style="float:right">Contact us</a>
     </div>
     <div id="wrapper" style="padding-left:16px;padding-top:30px;justify-content: center">

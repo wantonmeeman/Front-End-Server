@@ -314,7 +314,7 @@
     function getUsername(userid) {//loads usernames
         $.ajax({
             async: false,
-            url: 'http://25.44.126.168:81/users/' + userid,//add array
+            url: 'http://yeet:81/users/' + userid,//add array
             headers: {
                 'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
             },
@@ -351,7 +351,7 @@
 
             $.ajax({//call ajax to like and update db
                 async: false,
-                url: 'http://25.44.126.168:81/like/' + id,
+                url: 'http://yeet:81/like/' + id,
                 type: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -370,7 +370,7 @@
 
             $.ajax({//call ajax to like and update db
                 async: false,
-                url: 'http://25.44.126.168:81/dislike/' + id,
+                url: 'http://yeet:81/dislike/' + id,
                 type: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -391,11 +391,11 @@
     $(document).ready(function () {
         var AccessToken = localStorage.getItem('AccessToken');
         if (AccessToken == null) {
-            window.location = "http://dongen:81/ErrorPage"//link this to an error page
+            window.location = "http://yeet:80/ErrorPage"//link this to an error page
         }
         $.ajax({
             async: false,
-            url: 'http://25.44.126.168:81/decodeToken',
+            url: 'http://yeet:81/decodeToken',
             type: 'POST',
             headers: {
                 'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -411,7 +411,7 @@
         
         $.ajax({
             async: false,
-            url: 'http://25.44.126.168:81/users/' + data.user_id,
+            url: 'http://yeet:81/users/' + data.user_id,
             type: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -451,12 +451,12 @@
         });
 
         //end
-        $("#PFP").attr("src", "http://25.44.126.168:81/users/PFP/" + data.user_id + "/");
+        $("#PFP").attr("src", "http://yeet:81/users/PFP/" + data.user_id + "/");
         $("#heart").attr("src", "./Pic/heart.png")
         $(".active").append(data1[0].username)
   
         $('.active').click(function (event) {
-            window.location = "http://dongen:81/profile";
+            window.location = "http://yeet:80/profile";
         })
         
         $('.title').append(data1[0].title)
@@ -514,7 +514,7 @@
                 }
                 if (update) {
                     $.ajax({
-                        url: 'http://25.44.126.168:81/listings/',//this works!
+                        url: 'http://yeet:81/listings/',//this works!
                         data: formData,
                         type: 'POST',
                         headers: {
@@ -524,7 +524,7 @@
                         processData: false, 
                         success: function (result) {
                             alert("Changes were made")
-                            window.location = "http://dongen:81/Listing"
+                            window.location = "http://yeet:80/Listing"
 
                         },
                         error: function (xhr, textStatus, errorThrown) {
@@ -556,13 +556,13 @@
 <body>
     <div class="topnav">
         <img id="PFP" src="" alt="Profile Picture" style="width: 48px;height:48px;margin-right:3px;margin-left:3px">
-        <a class="active" href="http://dongen:81/profile"></a>
-        <a class='nav' href="http://dongen:81/login" onclick="localStorage.removeItem('AccessToken')" style="float:right"> Log Out</a>
-        <a  id="Listing" href="http://dongen:81/SelfListing">My Listings</a>
-        <a href="http://dongen:81/Offers">My Offers</a>
-        <a href="http://dongen:81/LikedListings">Liked posts</a>
-        <a href="http://dongen:81/listing" style="margin-left:10px;background-color:#9d6600">Listings</a>
-        <a href="http://dongen:81/NewListing" style="background-color:#9d6600">+</a>
+        <a class="active" href="http://yeet:80/profile"></a>
+        <a class='nav' href="http://yeet:80/login" onclick="localStorage.removeItem('AccessToken')" style="float:right"> Log Out</a>
+        <a  id="Listing" href="http://yeet:80/SelfListing">My Listings</a>
+        <a href="http://yeet:80/Offers">My Offers</a>
+        <a href="http://yeet:80/LikedListings">Liked posts</a>
+        <a href="http://yeet:80/listing" style="margin-left:10px;background-color:#9d6600">Listings</a>
+        <a href="http://yeet:80/NewListing" style="background-color:#9d6600">+</a>
         <a href="#Contact" style="float:right">Contact us</a>
     </div>
     <div id="wrapper" style="padding-left:16px;padding-top:30px;justify-content: center">

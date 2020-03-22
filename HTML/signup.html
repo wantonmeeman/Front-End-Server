@@ -27,7 +27,7 @@
             width: 300px;
             height: 300px;
             margin-top: 30px;
-            margin-left: 30px;
+            margin-left: 20px;
             border: solid;
             border-color: grey;
             background-color: black;
@@ -35,7 +35,6 @@
 
         #photo {
             float: left;
-            width: 22%;
             padding-right: 30px;
             border-right: solid;
             border-right-color: #ababab;
@@ -43,7 +42,6 @@
         }
 
         #Username {
-            margin-left: 30px;
             margin-top: 20px;
             text-align: center;
             color: black;
@@ -149,17 +147,16 @@
                     formData.append('password', password);
                     formData.append('photo', $('input[type=file]')[0].files[0]);// Attach file
                     $.ajax({
-                        url: 'http://25.44.126.168:81/users/',
+                        url: 'http://yeet:81/users/',
                         data: formData,
                         type: 'POST',
                         contentType: false, 
                         processData: false, 
                         success: function (result) {
                             alert("Changes were made")
-                            window.location = "http://dongen:81/Listing"
                             $.ajax({
                                 async: false,
-                                url: 'http://25.44.126.168:81/postlogin',
+                                url: 'http://yeet:81/postlogin',
                                 type: 'POST',
                                 dataType: 'json',
                                 data: { username: username, password: password },
@@ -176,6 +173,7 @@
                                     callback(false)
                                 },
                             })
+							window.location = "http://yeet:80/Listing"
                         },
                         error: function (xhr, textStatus, errorThrown) {
                             console.log('Error in Operation');
@@ -206,7 +204,7 @@
 
 
         $('#Cancel').click(function () {
-            window.location = "http://dongen:81/Listing"
+            window.history.back();
         })
         $("#PFPupload").change(function () {
             readURL(this);
@@ -249,7 +247,7 @@
                 <input type="file" accept="image/*" name="photo" id="PFPupload">
             </form>
         </div>
-        <div>
+        <div name = 'test' style='color:red'>
             <button id='Confirm'>
                 Confirm
             </button>

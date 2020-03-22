@@ -60,9 +60,7 @@ app.get('/Offers/', function (req, res) {
 app.get('/Listing1/', function (req, res) {
   fs.createReadStream('./HTML/homepage2.html').pipe(res)
 })
-app.get('/test/', function (req, res) {
-  fs.createReadStream('./HTML/hey.txt').pipe(res)
-})
+
 
 // app.listen(port, function () {
 //   console.log(`Listening on http://localhost:${port}`)
