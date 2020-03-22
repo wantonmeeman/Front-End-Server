@@ -2294,7 +2294,7 @@
       }
       $.ajax({
         async: false,
-        url: 'http://dongen:81/postlogin',
+        url: 'http://25.44.126.168:81/postlogin',
         type: 'POST',
         dataType: 'json',
         data: { remember_me: remember_me, username: username, password: password },
@@ -2311,7 +2311,7 @@
         },
       })
       if(goTo == true){
-        window.location = "http://dongen:80/Listing";
+        window.location = "http://25.44.126.168:80/Listing";
         console.log('Going')
       }else{
         alert('Wrong Login Credentials')
@@ -2340,7 +2340,7 @@
         <label class="login_link" for="user_remember_me" id="remember_me_label">Stay signed In</label>
       </div>
     </div>
-    <div style="margin-right:220px;margin-top:30px;float:right"><a href="http://dongen:80/SignUp" style="color:#807b6e">Sign Up</a></div>
+    <div style="margin-right:220px;margin-top:30px;float:right"><a href="http://25.44.126.168:81/SignUp" style="color:#807b6e">Sign Up</a></div>
   </form>
 </div>
 

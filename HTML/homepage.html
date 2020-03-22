@@ -232,7 +232,7 @@
     function getUsername(userid) {//loads usernames
         $.ajax({
             async: false,
-            url: 'http://dongen:80/users/' + userid,
+            url: 'http://25.44.126.168:81/users/' + userid,
             type: 'GET',
 
             success: function (response) {
@@ -250,7 +250,7 @@
         if ($("#heartid" + (id - 1)).attr("src") == `./Pic/heart.png`) {
             $.ajax({//call ajax to like and update db
                 async: false,
-                url: 'http://dongen:80/like/' + id,
+                url: 'http://25.44.126.168:81/like/' + id,
                 type: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -269,7 +269,7 @@
 
             $.ajax({//call ajax to like and update db
                 async: false,
-                url: 'http://dongen:80/dislike/' + id,
+                url: 'http://25.44.126.168:81/dislike/' + id,
                 type: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -298,7 +298,7 @@
         if (AccessToken == null) {
             $.ajax({
                 async: false,
-                url: 'http://dongen:80/listings/',
+                url: 'http://25.44.126.168:81/listings/',
                 type: 'GET',
                 success: function (response) {
                     callback1(response)
@@ -314,9 +314,9 @@
             
             for (var z = 0; data1.length > z; z++) {
                 getUsername(data1[z].fk_user_id)
-                $("#PFP").attr("src", "http://dongen:80/Pic/Placehoolder.png");
+                $("#PFP").attr("src", "http://25.44.126.168:81/Pic/Placehoolder.png");
                 $("#wrapper").append(
-                    "<div class='node' id='node" + data1[z].id + "'><a href='#' onclick='GoToListing(data1[" + z + "].id);return false;' class='listingLink' ><img src='http://dongen:80/listings/photo/" + data1[z].id + "' class='listingImg'><div class='BotWrapper'><div class='TextWrapper'><div class='title'>" + data1[z].title + "</div><div class='description'>" + data1[z].description + "</div><div class='AuthorNPrice'><div class='author'>" + data2 + "</div><div class='price'>\t$" + data1[z].price + "</div></div></div></a><a class='like' href='#' onclick='alert(`Guest users cannot like`);return false;'><img class='heart' id='heartid" + z + "'src=" + './Pic/heart.png' + "></a></div>"
+                    "<div class='node' id='node" + data1[z].id + "'><a href='#' onclick='GoToListing(data1[" + z + "].id);return false;' class='listingLink' ><img src='http://25.44.126.168:81/listings/photo/" + data1[z].id + "' class='listingImg'><div class='BotWrapper'><div class='TextWrapper'><div class='title'>" + data1[z].title + "</div><div class='description'>" + data1[z].description + "</div><div class='AuthorNPrice'><div class='author'>" + data2 + "</div><div class='price'>\t$" + data1[z].price + "</div></div></div></a><a class='like' href='#' onclick='alert(`Guest users cannot like`);return false;'><img class='heart' id='heartid" + z + "'src=" + './Pic/heart.png' + "></a></div>"
                 );
             }
             $("#Search").submit(function (event) {
@@ -338,7 +338,7 @@
         } else {
             $.ajax({
                 async: false,
-                url: 'http://dongen:80/decodeToken',
+                url: 'http://25.44.126.168:81/decodeToken',
                 type: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -354,7 +354,7 @@
             })
             $.ajax({
                 async: false,
-                url: 'http://dongen:80/listings/',//add array
+                url: 'http://25.44.126.168:81/listings/',//add array
                 type: 'GET',
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -369,7 +369,7 @@
             })
             $.ajax({
                 async: false,
-                url: 'http://dongen:80/users/' + data.user_id,
+                url: 'http://25.44.126.168:81/users/' + data.user_id,
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
                 },
@@ -384,7 +384,7 @@
             })
             $.ajax({
                 async: false,
-                url: 'http://dongen:80/likes/user/' + data.user_id,
+                url: 'http://25.44.126.168:81/likes/user/' + data.user_id,
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
                 },
@@ -402,14 +402,14 @@
             console.log(data1)
             console.log(data3)
             console.log(data4)
-            $("#PFP").attr("src", "http://dongen:80/users/PFP/" + data.user_id + "/");
+            $("#PFP").attr("src", "http://25.44.126.168:81/users/PFP/" + data.user_id + "/");
             $(".active").append(data4[0].username)
             $(".active").attr('href',"http://dongen:81/profile")
 
             for (var z = 0; data1.length > z; z++) {
                 getUsername(data1[z].fk_user_id)
                 $("#wrapper").append(
-                    "<div class='node' id='node" + data1[z].id + "'><a href='#' onclick='GoToListing(data1[" + z + "].id);return false;' class='listingLink' ><img src='http://dongen:80/listings/photo/" + data1[z].id + "' class='listingImg'><div class='BotWrapper'><div class='TextWrapper'><div class='title'>" + data1[z].title + "</div><div class='description'>" + data1[z].description + "</div><div class='AuthorNPrice'><div class='author'>" + data2 + "</div><div class='price'>\t$" + data1[z].price + "</div></div></div></a><a class='like' href='#' onclick='Like(data1[" + z + "].id);return false;'><img class='heart' id='heartid" + z + "'src=" + LoadLike(data3, z) + "></a></div>"
+                    "<div class='node' id='node" + data1[z].id + "'><a href='#' onclick='GoToListing(data1[" + z + "].id);return false;' class='listingLink' ><img src='http://25.44.126.168:81/listings/photo/" + data1[z].id + "' class='listingImg'><div class='BotWrapper'><div class='TextWrapper'><div class='title'>" + data1[z].title + "</div><div class='description'>" + data1[z].description + "</div><div class='AuthorNPrice'><div class='author'>" + data2 + "</div><div class='price'>\t$" + data1[z].price + "</div></div></div></a><a class='like' href='#' onclick='Like(data1[" + z + "].id);return false;'><img class='heart' id='heartid" + z + "'src=" + LoadLike(data3, z) + "></a></div>"
                 );
             }
             $("#Search").submit(function (event) {

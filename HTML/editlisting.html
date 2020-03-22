@@ -304,7 +304,7 @@
     function getUsername(userid) {//loads usernames
         $.ajax({
             async: false,
-            url: 'http://dongen:80/users/' + userid,//add array
+            url: 'http://25.44.126.168:81/users/' + userid,//add array
             headers: {
                 'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
             },
@@ -341,7 +341,7 @@
 
             $.ajax({//call ajax to like and update db
                 async: false,
-                url: 'http://dongen:80/like/' + id,
+                url: 'http://25.44.126.168:81/like/' + id,
                 type: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -360,7 +360,7 @@
 
             $.ajax({//call ajax to dislike and update db
                 async: false,
-                url: 'http://dongen:80/dislike/' + id,
+                url: 'http://25.44.126.168:81/dislike/' + id,
                 type: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -385,7 +385,7 @@
         }
         $.ajax({
             async: false,
-            url: 'http://dongen:80/decodeToken',
+            url: 'http://25.44.126.168:81/decodeToken',
             type: 'POST',
             headers: {
                 'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -400,7 +400,7 @@
         })
         $.ajax({
             async: false,
-            url: 'http://dongen:80/listings/' + localStorage.getItem('listid'),
+            url: 'http://25.44.126.168:81/listings/' + localStorage.getItem('listid'),
             type: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -415,7 +415,7 @@
         })
         $.ajax({
             async: false,
-            url: 'http://dongen:80/users/' + data.user_id,
+            url: 'http://25.44.126.168:81/users/' + data.user_id,
             type: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -430,7 +430,7 @@
         })
         $.ajax({
             async: false,
-            url: 'http://dongen:80/likes/listing/' + localStorage.getItem('listid'),
+            url: 'http://25.44.126.168:81/likes/listing/' + localStorage.getItem('listid'),
             type: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -468,14 +468,14 @@
             }
         });
         //end
-        $("#PFP").attr("src", "http://dongen:80/users/PFP/" + data.user_id + "/");
+        $("#PFP").attr("src", "http://25.44.126.168:81/users/PFP/" + data.user_id + "/");
         $("#heart").attr("src", LoadLike(data3, data))
         $(".active").append(data4[0].username)
         getUsername(data1[0].fk_user_id)
         $('.active').click(function (event) {
             window.location = "http://dongen:81/profile";
         })
-        $(".listingImg").attr("src", 'http://dongen:80/listings/photo/' + data1[0].id)
+        $(".listingImg").attr("src", 'http://25.44.126.168:81/listings/photo/' + data1[0].id)
         $('.title').append(data1[0].title)
         $('#title').attr('value',data1[0].title)
         $('#description').append(data1[0].description)
@@ -534,7 +534,7 @@
                 }
                 if (update) {
                     $.ajax({
-                        url: 'http://dongen:80/listings/' + data1[0].id,
+                        url: 'http://25.44.126.168:81/listings/' + data1[0].id,
                         data: formData,
                         type: 'PUT',
                         headers: {

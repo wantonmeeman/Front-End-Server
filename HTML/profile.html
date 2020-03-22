@@ -190,7 +190,7 @@ var AccessToken = localStorage.getItem('AccessToken');
     function getUserDetails(userid) {//loads usernames
         $.ajax({
             async: false,
-            url: 'http://dongen:80/users/' + userid,//user info
+            url: 'http://25.44.126.168:81/users/' + userid,//user info
             headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
                 },
@@ -207,7 +207,7 @@ var AccessToken = localStorage.getItem('AccessToken');
         })
         $.ajax({
             async: false,
-            url: 'http://dongen:80/users/' + userid + '/listings',//listings
+            url: 'http://25.44.126.168:81/users/' + userid + '/listings',//listings
             type: 'GET',
             headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -224,7 +224,7 @@ var AccessToken = localStorage.getItem('AccessToken');
         })
         $.ajax({
             async: false,
-            url: 'http://dongen:80/likes/user/' + userid,//liked
+            url: 'http://25.44.126.168:81/likes/user/' + userid,//liked
             type: 'GET',
             headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -244,7 +244,7 @@ var AccessToken = localStorage.getItem('AccessToken');
     function totalLikes(id) {//total likes
         $.ajax({
             async: false,
-            url: 'http://dongen:80/likes/listing/' + id,//likes
+            url: 'http://25.44.126.168:81/likes/listing/' + id,//likes
             type: 'GET',
             headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -262,7 +262,7 @@ var AccessToken = localStorage.getItem('AccessToken');
     function totalOffers(id) {
         $.ajax({
             async: false,
-            url: 'http://dongen:80/listings/' + id + '/offers/',//liked
+            url: 'http://25.44.126.168:81/listings/' + id + '/offers/',//liked
             type: 'GET',
             headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -285,7 +285,7 @@ var AccessToken = localStorage.getItem('AccessToken');
         }
         $.ajax({
             async: false,
-            url: 'http://dongen:80/decodeToken',
+            url: 'http://25.44.126.168:81/decodeToken',
             type: 'POST',
             headers: {
                 'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -311,7 +311,7 @@ var AccessToken = localStorage.getItem('AccessToken');
         // console.log(data4)
         // console.log(data5)
 
-        $(".PFP").attr("src", "http://dongen:80/users/PFP/" + data.user_id + "/");
+        $(".PFP").attr("src", "http://25.44.126.168:81/users/PFP/" + data.user_id + "/");
         $(".active").append(data1[0].username)
         $("#Username").append(data1[0].username)
         $('#username').append(data1[0].username)

@@ -231,7 +231,7 @@
     function getUsername(userid) {//loads usernames
         $.ajax({
             async: false,
-            url: 'http://dongen:80/users/' + userid,
+            url: 'http://25.44.126.168:81/users/' + userid,
             headers: {
                 'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
             },
@@ -252,7 +252,7 @@
 
             $.ajax({//call ajax to like and update db
                 async: false,
-                url: 'http://dongen:80/like/' + id,
+                url: 'http://25.44.126.168:81/like/' + id,
                 type: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -271,7 +271,7 @@
 
             $.ajax({//call ajax to like and update db
                 async: false,
-                url: 'http://dongen:80/dislike/' + id,
+                url: 'http://25.44.126.168:81/dislike/' + id,
                 type: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -294,7 +294,7 @@
         if (AccessToken == null) {
             $.ajax({
                 async: false,
-                url: 'http://dongen:80/listings/' + localStorage.getItem('listid'),
+                url: 'http://25.44.126.168:81/listings/' + localStorage.getItem('listid'),
                 type: 'GET',
                 success: function (response) {
                     callback1(response)
@@ -306,7 +306,7 @@
             })
             $.ajax({
                 async: false,
-                url: 'http://dongen:80/likes/listing/' + localStorage.getItem('listid'),
+                url: 'http://25.44.126.168:81/likes/listing/' + localStorage.getItem('listid'),
                 type: 'GET',
                 success: function (response) {
                     callback3(response)
@@ -319,8 +319,8 @@
            
             $(".active").append("Log In")
             $('.nav').empty()
-            $("#PFP").attr("src", "http://dongen:80/Pic/Placehoolder.png");
-            $(".listingImg").attr("src", 'http://dongen:80/listings/photo/' + data1[0].id)
+            $("#PFP").attr("src", "http://25.44.126.168:81/Pic/Placehoolder.png");
+            $(".listingImg").attr("src", 'http://25.44.126.168:81/listings/photo/' + data1[0].id)
             $('.title').append(data1[0].title)
             $('.description').append(data1[0].description)
             $('.author').append(data2)
@@ -332,7 +332,7 @@
         } else {
             $.ajax({
                 async: false,
-                url: 'http://dongen:80/decodeToken',
+                url: 'http://25.44.126.168:81/decodeToken',
                 type: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -347,7 +347,7 @@
             })
             $.ajax({
                 async: false,
-                url: 'http://dongen:80/listings/' + localStorage.getItem('listid'),
+                url: 'http://25.44.126.168:81/listings/' + localStorage.getItem('listid'),
                 type: 'GET',
                 success: function (response) {
                     callback1(response)
@@ -359,7 +359,7 @@
             })
             $.ajax({
                 async: false,
-                url: 'http://dongen:80/users/' + data.user_id,
+                url: 'http://25.44.126.168:81/users/' + data.user_id,
                 type: 'GET',
                 success: function (response) {
                     callback4(response)
@@ -371,7 +371,7 @@
             })
             $.ajax({
                 async: false,
-                url: 'http://dongen:80/likes/listing/' + localStorage.getItem('listid'),
+                url: 'http://25.44.126.168:81/likes/listing/' + localStorage.getItem('listid'),
                 type: 'GET',
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -386,14 +386,14 @@
             })
             var Submit = true;
 
-            $("#PFP").attr("src", "http://dongen:80/users/PFP/" + data.user_id + "/");
+            $("#PFP").attr("src", "http://25.44.126.168:81/users/PFP/" + data.user_id + "/");
             $("#heart").attr("src", LoadLike(data3, data))
             $(".active").append(data4[0].username)
             getUsername(data1[0].fk_user_id)
             $('.active').click(function (event) {
                 window.location = "http://dongen:81/profile";
             })
-            $(".listingImg").attr("src", 'http://dongen:80/listings/photo/' + data1[0].id)
+            $(".listingImg").attr("src", 'http://25.44.126.168:81/listings/photo/' + data1[0].id)
             $('.title').append(data1[0].title)
             
             $('.description').append(data1[0].description)
@@ -422,7 +422,7 @@
                             console.log(data1[0].id)
                             $.ajax({
                                 async: false,
-                                url: 'http://dongen:80/listings/' + data1[0].id + '/offers/',
+                                url: 'http://25.44.126.168:81/listings/' + data1[0].id + '/offers/',
                                 type: 'POST',
                                 data: {
                                     offer: offer,

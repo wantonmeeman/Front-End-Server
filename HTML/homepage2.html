@@ -255,7 +255,7 @@
         for (var i = 0; i < data5.length; i++) {
             $.ajax({
                 async: false,
-                url: 'http://dongen:80/listings/' + data5[i].id + '/offers',//add array
+                url: 'http://25.44.126.168:81/listings/' + data5[i].id + '/offers',//add array
                 type: 'GET',
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -285,7 +285,7 @@
     function getUsernameR(userid) {//loads usernames
         $.ajax({
             async: false,
-            url: 'http://dongen:80/users/' + userid,//add array
+            url: 'http://25.44.126.168:81/users/' + userid,//add array
             type: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -304,7 +304,7 @@
     function getUsername(userid) {//loads usernames
         $.ajax({
             async: false,
-            url: 'http://dongen:80/users/' + userid,//add array
+            url: 'http://25.44.126.168:81/users/' + userid,//add array
             type: 'GET',
 
             success: function (response) {
@@ -323,7 +323,7 @@
         if ($("#heartid" + (id - 1)).attr("src") == `./Pic/heart.png`) {
             $.ajax({//call ajax to like and update db
                 async: false,
-                url: 'http://dongen:80/like/' + id,
+                url: 'http://25.44.126.168:81/like/' + id,
                 type: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -342,7 +342,7 @@
 
             $.ajax({//call ajax to like and update db
                 async: false,
-                url: 'http://dongen:80/dislike/' + id,
+                url: 'http://25.44.126.168:81/dislike/' + id,
                 type: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -377,7 +377,7 @@
         if (AccessToken == null) {
             $.ajax({
                 async: false,
-                url: 'http://dongen:80/listings/',//add array
+                url: 'http://25.44.126.168:81/listings/',//add array
                 type: 'GET',
                 success: function (response) {
                     callback1(response)
@@ -392,15 +392,15 @@
             $('.nav').css('display','none')
             for (var z = 0; data1.length > z; z++) {
                 getUsername(data1[z].fk_user_id)
-                $("#PFP").attr("src", "http://dongen:80/Pic/Placehoolder.png");
+                $("#PFP").attr("src", "http://25.44.126.168:81/Pic/Placehoolder.png");
                 $("#wrapper").append(
-                    "<div class='node' id='node" + data1[z].id + "'><a href='#' onclick='GoToListing(data1[" + z + "].id);return false;' class='listingLink' ><img src='http://dongen:80/listings/photo/" + data1[z].id + "' class='listingImg'><div class='BotWrapper'><div class='TextWrapper'><div class='title'>" + data1[z].title + "</div><div class='description'>" + data1[z].description + "</div><div class='AuthorNPrice'><div class='author'>" + data2 + "</div><div class='price'>\t$" + data1[z].price + "</div></div></div></a><a class='like' href='#' onclick='alert(`Guest users cannot like`);return false;'><img class='heart' id='heartid" + z + "'src=" + './Pic/heart.png' + "></a></div>"
+                    "<div class='node' id='node" + data1[z].id + "'><a href='#' onclick='GoToListing(data1[" + z + "].id);return false;' class='listingLink' ><img src='http://25.44.126.168:81/listings/photo/" + data1[z].id + "' class='listingImg'><div class='BotWrapper'><div class='TextWrapper'><div class='title'>" + data1[z].title + "</div><div class='description'>" + data1[z].description + "</div><div class='AuthorNPrice'><div class='author'>" + data2 + "</div><div class='price'>\t$" + data1[z].price + "</div></div></div></a><a class='like' href='#' onclick='alert(`Guest users cannot like`);return false;'><img class='heart' id='heartid" + z + "'src=" + './Pic/heart.png' + "></a></div>"
                 );
             }
         } else {
             $.ajax({
                 async: false,
-                url: 'http://dongen:80/decodeToken',/*val()->value*/
+                url: 'http://25.44.126.168:81/decodeToken',/*val()->value*/
                 type: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -418,7 +418,7 @@
             })
             $.ajax({
                 async: false,
-                url: 'http://dongen:80/users/' + data.user_id + '/listings',
+                url: 'http://25.44.126.168:81/users/' + data.user_id + '/listings',
                 type: 'GET',
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -433,7 +433,7 @@
             })
             $.ajax({
                 async: false,
-                url: 'http://dongen:80/listings/',//add array
+                url: 'http://25.44.126.168:81/listings/',//add array
                 type: 'GET',
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -448,7 +448,7 @@
             })
             $.ajax({
                 async: false,
-                url: 'http://dongen:80/users/' + data.user_id,
+                url: 'http://25.44.126.168:81/users/' + data.user_id,
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
                 },
@@ -463,7 +463,7 @@
             })
             $.ajax({
                 async: false,
-                url: 'http://dongen:80/likes/user/' + data.user_id,
+                url: 'http://25.44.126.168:81/likes/user/' + data.user_id,
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
                 },
@@ -484,21 +484,21 @@
             console.log(data4)
             console.log(data5)
             // console.log(data1[Offers()[0][0].fk_listing_id].title)
-            $("#PFP").attr("src", "http://dongen:80/users/PFP/" + data.user_id + "/");
+            $("#PFP").attr("src", "http://25.44.126.168:81/users/PFP/" + data.user_id + "/");
             $(".active").append(data4[0].username)
             $(".active").attr('href', "http://dongen:81/profile")
 
             for (var z = 0; data1.length > z; z++) {
                 getUsername(data1[z].fk_user_id)
                 $("#wrapper").append(
-                    "<div class='node' id='node" + data1[z].id + "'><a href='#' onclick='GoToListing(data1[" + z + "].id);return false;' class='listingLink' ><img src='http://dongen:80/listings/photo/" + data1[z].id + "' class='listingImg'><div class='BotWrapper'><div class='TextWrapper'><div class='title'>" + data1[z].title + "</div><div class='description'>" + data1[z].description + "</div><div class='AuthorNPrice'><div class='author'>" + data2 + "</div><div class='price'>\t$" + data1[z].price + "</div></div></div></a><a class='like' href='#' onclick='Like(data1[" + z + "].id);return false;'><img class='heart' id='heartid" + z + "'src=" + LoadLike(data3, z) + "></a></div>"
+                    "<div class='node' id='node" + data1[z].id + "'><a href='#' onclick='GoToListing(data1[" + z + "].id);return false;' class='listingLink' ><img src='http://25.44.126.168:81/listings/photo/" + data1[z].id + "' class='listingImg'><div class='BotWrapper'><div class='TextWrapper'><div class='title'>" + data1[z].title + "</div><div class='description'>" + data1[z].description + "</div><div class='AuthorNPrice'><div class='author'>" + data2 + "</div><div class='price'>\t$" + data1[z].price + "</div></div></div></a><a class='like' href='#' onclick='Like(data1[" + z + "].id);return false;'><img class='heart' id='heartid" + z + "'src=" + LoadLike(data3, z) + "></a></div>"
                 );
             }
             for (var b = 0;Offers().length>b;b++) {
                 for (var z = 0; Offers()[b].length > z; z++) {
                     getUsernameR(Offers()[b][z].fk_offeror_id)
                     $("#Offer").append(
-                        "<div class='nodeO'><img class='propic' style='float:left;' src='http://dongen:80/users/PFP/" + Offers()[b][z].fk_offeror_id + "/'><div class='username' style='float:left;width:80%;margin-left:10px;'>" + data6 + "</div><div style='float:left;font-weight:600;width:80%;margin-left:10px;'>has offered</div><div class='offerM 'style='float:left;width:40%;margin-left:10px;font-size:30px;font-weight:600'>$" + data5[b].price + "</div><div style='float:left;width:40%;margin-left:10px;font-size:16px;font-weight:600'>for your listing:<br>"+data1[Offers()[0][0].fk_listing_id].title+"</div><div class='Date' style='float:left;width:50%;margin-left:10px;margin-top:10px;font-size:20px;font-weight:600'>" + DateFormatter(Offers()[b][z].TOC) + "</div></div>"
+                        "<div class='nodeO'><img class='propic' style='float:left;' src='http://25.44.126.168:81/users/PFP/" + Offers()[b][z].fk_offeror_id + "/'><div class='username' style='float:left;width:80%;margin-left:10px;'>" + data6 + "</div><div style='float:left;font-weight:600;width:80%;margin-left:10px;'>has offered</div><div class='offerM 'style='float:left;width:40%;margin-left:10px;font-size:30px;font-weight:600'>$" + data5[b].price + "</div><div style='float:left;width:40%;margin-left:10px;font-size:16px;font-weight:600'>for your listing:<br>"+data1[Offers()[0][0].fk_listing_id].title+"</div><div class='Date' style='float:left;width:50%;margin-left:10px;margin-top:10px;font-size:20px;font-weight:600'>" + DateFormatter(Offers()[b][z].TOC) + "</div></div>"
                     );
                 }
             }
@@ -529,7 +529,7 @@
             $("#wrapper").empty()
             $.ajax({
             async: false,
-            url: 'http://dongen:80/listingsO/ASC/price',//add array
+            url: 'http://25.44.126.168:81/listingsO/ASC/price',//add array
             type: 'GET',
             headers:{'Content-Type':"application/x-www-form-urlencoded"},
             success: function (response) {
@@ -542,7 +542,7 @@
             for (z = 0; data1.length > z; z++) {
             getUsername(data1[z].fk_user_id)
             $("#wrapper").append(
-                "<div class='node' id='node" + data1[z].id + "'><a href='#' class='listingLink'><img src='http://dongen:80/listings/photo/" + data1[z].id + "' class='listingImg'><div class='BotWrapper'><div class='TextWrapper'><div class='title'>" + data1[z].title + "</div><div class='description'>" + data1[z].description + "</div><div class='AuthorNPrice'><div class='author'>" + data2 + "</div><div class='price'>\t$" + data1[z].price + "</div></div></div></a><a class='like' href='#' onclick='Like(data1[" + z + "].id,data2);return false;'><img class='heart' id='heartid" + z + "'src=" + LoadLike(data3, data1[z].id) + "></a></div>"
+                "<div class='node' id='node" + data1[z].id + "'><a href='#' class='listingLink'><img src='http://25.44.126.168:81/listings/photo/" + data1[z].id + "' class='listingImg'><div class='BotWrapper'><div class='TextWrapper'><div class='title'>" + data1[z].title + "</div><div class='description'>" + data1[z].description + "</div><div class='AuthorNPrice'><div class='author'>" + data2 + "</div><div class='price'>\t$" + data1[z].price + "</div></div></div></a><a class='like' href='#' onclick='Like(data1[" + z + "].id,data2);return false;'><img class='heart' id='heartid" + z + "'src=" + LoadLike(data3, data1[z].id) + "></a></div>"
             );
         }
         });*/

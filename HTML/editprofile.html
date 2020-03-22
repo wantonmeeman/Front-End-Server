@@ -177,7 +177,7 @@
     function getUserDetails(userid) {//loads usernames
         $.ajax({
             async: false,
-            url: 'http://dongen:80/users/' + userid,//user info
+            url: 'http://25.44.126.168:81/users/' + userid,//user info
             headers: {
                 'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
             },
@@ -211,11 +211,11 @@
     $(document).ready(function () {
         var AccessToken = localStorage.getItem('AccessToken');
         if (AccessToken == null) {
-            window.location = "http://dongen:80/ErrorPage"
+            window.location = "http://25.44.126.168:81/ErrorPage"
         }
         $.ajax({
             async: false,
-            url: 'http://dongen:80/decodeToken',
+            url: 'http://25.44.126.168:81/decodeToken',
             type: 'POST',
             headers: {
                 'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -262,17 +262,17 @@
             }
             console.log('adasdsa1')
             $.ajax({
-                url: 'http://dongen:80/users/' + data1[0].user_id,
+                url: 'http://25.44.126.168:81/users/' + data1[0].user_id,
                 data: formData,
                 type: 'PUT',
                 contentType: false, 
                 processData: false, 
                 success: function (result) {
                     alert("Changes were made")
-                    window.location = "http://dongen:80/Listing"
+                    window.location = "http://25.44.126.168:81/Listing"
                     $.ajax({
                         async: false,
-                        url: 'http://dongen:80/postlogin',
+                        url: 'http://25.44.126.168:81/postlogin',
                         type: 'POST',
                         dataType: 'json',
                         data: { username: username, password: password },
@@ -319,9 +319,9 @@
 
 
         $('#Cancel').click(function () {
-            window.location = "http://dongen:80/Listing"
+            window.location = "http://25.44.126.168:81/Listing"
         })
-        $(".PFP").attr("src", "http://dongen:80/users/PFP/" + data.user_id + "/");
+        $(".PFP").attr("src", "http://25.44.126.168:81/users/PFP/" + data.user_id + "/");
         $(".active").append(data1[0].username)
         $("#Username").append(data1[0].username)
         $('#username').attr("value", data1[0].username)
@@ -341,13 +341,13 @@
 <body>
     <div class="topnav">
         <img class="PFP" src="" alt="Profile Picture" style="width: 48px;height:48px;margin-right:3px;margin-left:3px">
-        <a class="active" href="http://dongen:80/profile" style="background-color:#9d6600"></a>
-        <a class='nav' href="http://dongen:80/login" onclick="localStorage.removeItem('AccessToken')" style="float:right"> Log Out</a>
-        <a   id="Listing" href="http://dongen:80/SelfListing">My Listings</a>
-        <a href="http://dongen:80/Offers">My Offers</a>
-        <a href="http://dongen:80/LikedListings">Liked posts</a>
-        <a href="http://dongen:80/listing" style="margin-left:10px;">Listings</a>
-        <a href="http://dongen:80/NewListing">+</a>
+        <a class="active" href="http://25.44.126.168:81/profile" style="background-color:#9d6600"></a>
+        <a class='nav' href="http://25.44.126.168:81/login" onclick="localStorage.removeItem('AccessToken')" style="float:right"> Log Out</a>
+        <a   id="Listing" href="http://25.44.126.168:81/SelfListing">My Listings</a>
+        <a href="http://25.44.126.168:81/Offers">My Offers</a>
+        <a href="http://25.44.126.168:81/LikedListings">Liked posts</a>
+        <a href="http://25.44.126.168:81/listing" style="margin-left:10px;">Listings</a>
+        <a href="http://25.44.126.168:81/NewListing">+</a>
         <a href="#Contact" style="float:right">Contact us</a>
     </div>
     <div class="ProfileWrapper">

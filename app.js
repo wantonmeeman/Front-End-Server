@@ -2,20 +2,22 @@ const express = require('express')
 const app = express()
 const fs = require('fs')
 const cors = require('cors')
-const port = 3001
-var ip;
+const ip = require('ip')
+const os = require('os')
+;
 app.use(cors())
-
+var IP = ip.address()
 var myLogger = function (req, res, next) {//middle ware
-  
   next()
 }
 
 app.use(myLogger)
 app.use(express.static('./HTML'))
-app.listen(80,'192.168.1.165' ,function () {
-  console.log(`Web App Hosted at http://dongen:80`);
+
+app.listen(80,IP ,function () {
+  console.log(`Web App Hosted at http://`+os.hostname()+`:80/`);
 });
+
 app.get('/Login', function (req, res) {//do password hashing, and thus change validation
   fs.createReadStream('./HTML/index.HTML').pipe(res)
 })

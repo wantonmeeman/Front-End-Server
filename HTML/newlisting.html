@@ -314,7 +314,7 @@
     function getUsername(userid) {//loads usernames
         $.ajax({
             async: false,
-            url: 'http://dongen:80/users/' + userid,//add array
+            url: 'http://25.44.126.168:81/users/' + userid,//add array
             headers: {
                 'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
             },
@@ -351,7 +351,7 @@
 
             $.ajax({//call ajax to like and update db
                 async: false,
-                url: 'http://dongen:80/like/' + id,
+                url: 'http://25.44.126.168:81/like/' + id,
                 type: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -370,7 +370,7 @@
 
             $.ajax({//call ajax to like and update db
                 async: false,
-                url: 'http://dongen:80/dislike/' + id,
+                url: 'http://25.44.126.168:81/dislike/' + id,
                 type: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -395,7 +395,7 @@
         }
         $.ajax({
             async: false,
-            url: 'http://dongen:80/decodeToken',
+            url: 'http://25.44.126.168:81/decodeToken',
             type: 'POST',
             headers: {
                 'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -411,7 +411,7 @@
         
         $.ajax({
             async: false,
-            url: 'http://dongen:80/users/' + data.user_id,
+            url: 'http://25.44.126.168:81/users/' + data.user_id,
             type: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -451,7 +451,7 @@
         });
 
         //end
-        $("#PFP").attr("src", "http://dongen:80/users/PFP/" + data.user_id + "/");
+        $("#PFP").attr("src", "http://25.44.126.168:81/users/PFP/" + data.user_id + "/");
         $("#heart").attr("src", "./Pic/heart.png")
         $(".active").append(data1[0].username)
   
@@ -514,7 +514,7 @@
                 }
                 if (update) {
                     $.ajax({
-                        url: 'http://dongen:80/listings/',//this works!
+                        url: 'http://25.44.126.168:81/listings/',//this works!
                         data: formData,
                         type: 'POST',
                         headers: {

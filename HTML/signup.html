@@ -149,7 +149,7 @@
                     formData.append('password', password);
                     formData.append('photo', $('input[type=file]')[0].files[0]);// Attach file
                     $.ajax({
-                        url: 'http://dongen:80/users/',
+                        url: 'http://25.44.126.168:81/users/',
                         data: formData,
                         type: 'POST',
                         contentType: false, 
@@ -159,7 +159,7 @@
                             window.location = "http://dongen:81/Listing"
                             $.ajax({
                                 async: false,
-                                url: 'http://dongen:80/postlogin',
+                                url: 'http://25.44.126.168:81/postlogin',
                                 type: 'POST',
                                 dataType: 'json',
                                 data: { username: username, password: password },

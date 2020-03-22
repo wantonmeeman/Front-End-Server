@@ -230,7 +230,7 @@
     function getUsername(userid) {//loads usernames
         $.ajax({
             async: false,
-            url: 'http://dongen:80/users/' + userid,//add array
+            url: 'http://25.44.126.168:81/users/' + userid,//add array
             type: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -249,7 +249,7 @@
         if ($("#heartid" + z).attr("src") == `./Pic/heart.png`) {
             $.ajax({//call ajax to like and update db
                 async: false,
-                url: 'http://dongen:80/like/' + id,
+                url: 'http://25.44.126.168:81/like/' + id,
                 type: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -268,7 +268,7 @@
 
             $.ajax({//call ajax to like and update db
                 async: false,
-                url: 'http://dongen:80/dislike/' + id,
+                url: 'http://25.44.126.168:81/dislike/' + id,
                 type: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -299,7 +299,7 @@
         }
         $.ajax({
             async: false,
-            url: 'http://dongen:80/decodeToken',/*val()->value*/
+            url: 'http://25.44.126.168:81/decodeToken',/*val()->value*/
             type: 'POST',
             headers: {
                 'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -317,7 +317,7 @@
         })
         $.ajax({
             async: false,
-            url: 'http://dongen:80/listings/',//add array
+            url: 'http://25.44.126.168:81/listings/',//add array
             type: 'GET',
             headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -332,7 +332,7 @@
         })
         $.ajax({
             async: false,
-            url: 'http://dongen:80/users/' + data.user_id,
+            url: 'http://25.44.126.168:81/users/' + data.user_id,
             type: 'GET',
             headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -347,7 +347,7 @@
         })
         $.ajax({
             async: false,
-            url: 'http://dongen:80/likes/user/' + data.user_id,
+            url: 'http://25.44.126.168:81/likes/user/' + data.user_id,
             type: 'GET',
             headers: {
                     'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
@@ -360,13 +360,13 @@
                 console.log(errorThrown)
             },
         })
-        $("#PFP").attr("src", "http://dongen:80/users/PFP/" + data.user_id + "/");
+        $("#PFP").attr("src", "http://25.44.126.168:81/users/PFP/" + data.user_id + "/");
         $(".active").append(data4[0].username)
         if (data3.length != 0) {
             for (var z = 0; data3.length > z; z++) {
                 getUsername(data1[data3[z].fk_listings_id - 1].fk_user_id)
                 $("#wrapper").append(
-                    "<div class='node' id='node" + data1[data3[z].fk_listings_id - 1].id + "'><a href='#' onclick='GoToListing(" + data1[data3[z].fk_listings_id - 1].id + ");return false;' class='listingLink' ><img src='http://dongen:80/listings/photo/" + data1[data3[z].fk_listings_id - 1].id + "' class='listingImg'><div class='BotWrapper'><div class='TextWrapper'><div class='title'>" + data1[data3[z].fk_listings_id - 1].title + "</div><div class='description'>" + data1[data3[z].fk_listings_id - 1].description + "</div><div class='AuthorNPrice'><div class='author'>" + data2 + "</div><div class='price'>\t$" + data1[data3[z].fk_listings_id - 1].price + "</div></div></div></a><a class='like' href='#' onclick='Like(" + data3[z].fk_listings_id + "," + z + ");return false;'><img class='heart' id='heartid" + z + "'src=" + LoadLike(data3, data3) + "></a></div>"
+                    "<div class='node' id='node" + data1[data3[z].fk_listings_id - 1].id + "'><a href='#' onclick='GoToListing(" + data1[data3[z].fk_listings_id - 1].id + ");return false;' class='listingLink' ><img src='http://25.44.126.168:81/listings/photo/" + data1[data3[z].fk_listings_id - 1].id + "' class='listingImg'><div class='BotWrapper'><div class='TextWrapper'><div class='title'>" + data1[data3[z].fk_listings_id - 1].title + "</div><div class='description'>" + data1[data3[z].fk_listings_id - 1].description + "</div><div class='AuthorNPrice'><div class='author'>" + data2 + "</div><div class='price'>\t$" + data1[data3[z].fk_listings_id - 1].price + "</div></div></div></a><a class='like' href='#' onclick='Like(" + data3[z].fk_listings_id + "," + z + ");return false;'><img class='heart' id='heartid" + z + "'src=" + LoadLike(data3, data3) + "></a></div>"
                 );
             }
         } else {
