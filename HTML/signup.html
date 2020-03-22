@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .prefix {
+            font-size: 17px;
+            float: left;
+            margin-right: 200px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #e9f0f9;
+        }
+
+        .PFP {
+            width: 48px;
+            height: 48px;
+            margin-right: 3px;
+            margin-left: 3px;
+        }
+
+        #BigPFP {
+            width: 300px;
+            height: 300px;
+            margin-top: 30px;
+            margin-left: 30px;
+            border: solid;
+            border-color: grey;
+            background-color: black;
+        }
+
+        #photo {
+            float: left;
+            width: 22%;
+            padding-right: 30px;
+            border-right: solid;
+            border-right-color: #ababab;
+            border-top:8px solid #f90;
+        }
+
+        #Username {
+            margin-left: 30px;
+            margin-top: 20px;
+            text-align: center;
+            color: black;
+            font-size: 20px;
+            font-weight: 600;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #profileInfo {
+            border-top:8px solid #f90;
+            float: right;
+            width: 70%;
+            padding-top: 30px;
+        }
+
+        #Search {
+            width: 500px;
+        }
+
+        #Cancel,
+        #Confirm {
+            background-color: #f90;
+            border: none;
+            color: white;
+            padding: 10px 30px;
+            margin-left: 230px;
+            text-align: center;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+            float: left;
+        }
+
+        #Cancel {
+            float: right;
+            margin-left: 0px;
+            margin-right: 620px;
+        }
+
+        #Cancel:hover,
+        #Confirm:hover {
+            background-color: #9d6600;
+        }
+
+        .textinput {
+            background-color: #ababab;
+            float: left;
+            padding: 8px;
+            border: none;
+            margin-top: 4px;
+            margin-right: 10px;
+            font-size: 17px;
+            color: black;
+            margin-bottom: 20px;
+        }
+
+        .textinput:focus {
+            background-color: grey;
+        }
+
+        #PFPupload {
+            background-color: #ababab;
+            margin-top: 5px;
+        }
+
+        .prefix {
+            font-weight: 600
+        }
+    </style>
+</head>
+<script>
+    var data;
+    var data1;
+    var hide = true;
+    function readURL(input) {//preview
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#BigPFP').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+
+    }
+    function callback(response) {//decodeToken
+        data = response;
+    }
+    function callback1(response) {
+        data1 = response;
+    }
+    $(document).ready(function () {
+        var AccessToken = localStorage.getItem('AccessToken');
+        $('#Confirm').click(function () {
+            var formData = new FormData();
+            var username = $('#username').val();
+            var password = $('#password').val();
+            var confirmPassword = $('#Confirmpassword').val();
+            if (username.length != 0) {//username validation
+                if (confirmPassword == password) {
+                    formData.append('username', username);
+                    formData.append('password', password);
+                    formData.append('photo', $('input[type=file]')[0].files[0]);// Attach file
+                    $.ajax({
+                        url: 'http://dongen:80/users/',
+                        data: formData,
+                        type: 'POST',
+                        contentType: false, 
+                        processData: false, 
+                        success: function (result) {
+                            alert("Changes were made")
+                            window.location = "http://dongen:81/Listing"
+                            $.ajax({
+                                async: false,
+                                url: 'http://dongen:80/postlogin',
+                                type: 'POST',
+                                dataType: 'json',
+                                data: { username: username, password: password },
+                                success: function (data, textStatus, request) {
+                                    console.log(data) 
+                                    callback(true)
+                                    localStorage.clear('AccessToken');
+                                    var token = data.token
+                                    var AccessToken = { "token": token }
+                                    localStorage.setItem('AccessToken', JSON.stringify(AccessToken));
+                                },
+                                error: function (xhr, textStatus, errorThrown) {
+                                    console.log(errorThrown);
+                                    callback(false)
+                                },
+                            })
+                        },
+                        error: function (xhr, textStatus, errorThrown) {
+                            console.log('Error in Operation');
+                            console.log(errorThrown)
+                            if (errorThrown == 'Gone') {
+                                alert('An image was not attached.')
+                            } else {
+                                if (errorThrown == 'Unsupported Media Type') {
+                                    alert('Please only use .JPEG.')
+                                } else {
+                                    if (errorThrown == 'Payload Too Large') {
+                                        alert('Image is too large.')
+                                    }
+                                }
+                            }
+                        }
+                    })
+                } else {
+                    alert(`Passwords do not match`)
+                }
+            } else {
+                alert(`Username is not filled`)
+            }
+        })
+
+        //console.log(response)
+
+
+
+        $('#Cancel').click(function () {
+            window.location = "http://dongen:81/Listing"
+        })
+        $("#PFPupload").change(function () {
+            readURL(this);
+        });
+        $("#username").change(function () {
+            $("#Username").empty()
+            $("#Username").append($("#username").val())
+        });
+
+    })
+
+</script>
+
+<body>
+    <div class="ProfileWrapper">
+        <div id="photo">
+            <img class='PFP' id='BigPFP' src="">
+            <div id='Username'></div>
+        </div>
+        <div id="profileInfo">
+            <form id='Search' action="" runat="server">
+                <div class="prefix">
+                    Username:
+                </div>
+                <input size=60 type="text" value="" id="username" class='textinput' placeholder="Username"
+                    accesskey="enter" autocomplete="off">
+                <div class="prefix">
+                    Password:
+                </div>
+                <input size=60 type="password" id="password" class='textinput' placeholder="Password"
+                    autocomplete="off">
+                <div class="prefix">
+                    Confirm Password:
+                </div>
+                <input size=60 type="password" id="Confirmpassword" class='textinput' placeholder="Confirm Password"
+                    autocomplete="off">
+                <div class="prefix">
+                    Profile Picture:
+                </div>
+                <input type="file" accept="image/*" name="photo" id="PFPupload">
+            </form>
+        </div>
+        <div>
+            <button id='Confirm'>
+                Confirm
+            </button>
+            <button id='Cancel'>
+                Cancel
+            </button>
+        </div>
+    </div>
+</body>
+
+</html>

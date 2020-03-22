@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .topnav {
+            overflow: hidden;
+            background-color: #333;
+
+        }
+
+        .topnav a {
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+
+            font-size: 17px;
+        }
+
+        .topnav img {
+            padding: 0px 0px;
+            float: left;
+            border: #4CAF50;
+
+        }
+
+        .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .topnav a.active {
+            background-color: #f90;
+            color: white;
+            margin-right: 20px;
+        }
+
+        #wrapper .node {
+            float: right;
+            margin-right: 70px;
+            margin-left: 70px;
+            margin-bottom: 50px;
+
+        }
+
+        #wrapper .listingImg {
+            width: 800px;
+            height: 600px;
+            border-style: solid;
+            border-width: 2px;
+            border-color: black;
+            border-radius: 20px;
+            position: relative;
+            z-index: -1;
+            background-color: red;
+        }
+
+        #wrapper .BotWrapper {
+            border-style: solid;
+            border-width: 2px;
+            border-color: black;
+            background: grey;
+            border-radius: 10px;
+            margin-left: 40px;
+            width: 500px;
+            height: 600px;
+            float: right;
+            align-content: center;
+
+        }
+
+        #wrapper .TextWrapper {
+            white-space: wrap;
+            width: 432px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #wrapper .title {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 24px;
+            font-weight: 500;
+            text-align: center;
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Droid Sans, Helvetica Neue, sans-serif;
+        }
+
+        #wrapper #heart {
+            height: 30px;
+            width: 30px;
+            display: block;
+            padding: 27px;
+            border: solid;
+            border-radius: 20px;
+            border-color: black;
+            border-width: 2px;
+        }
+
+        .offer {
+            width: 100px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #wrapper #AddOffer {
+            border: solid;
+            border-radius: 20px;
+            border-color: black;
+            border-width: 2px;
+            float: left;
+            padding: 60px;
+            padding-top: 30px;
+            padding-bottom: 30px;
+            font-weight: 500;
+            font-size: 20px;
+            color: #272727;
+            margin-top: 50px;
+            text-decoration: none;
+        }
+
+        #heartLink {
+            float: left;
+            margin-right: 50px;
+            margin-left: 10%;
+            margin-top: 50px;
+        }
+
+        #wrapper .description {
+            font-weight: 400;
+            font-size: 16px;
+            max-height:160px;
+            overflow: scroll;
+            overflow-x: hidden;
+            text-overflow: ellipsis;
+        /* or overflow:hidden */
+            margin-bottom: 30px;
+            color: #272727;
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Droid Sans, Helvetica Neue, sans-serif;
+        }
+
+        body {
+            background-color: #e9f0f9;
+        }
+
+        #wrapper .author {
+            color: #ababab;
+            margin-top: 2px;
+            margin-bottom: 20px;
+            text-align: center;
+
+        }
+
+        #wrapper .price {
+            color: black;
+            margin-top: 20px;
+            font-size: 28px;
+            text-align: center
+        }
+
+        #wrapper .likes {
+            color: #ababab;
+            margin-top: 20px;
+            font-size: 20px;
+            text-align: center
+        }
+
+        .textinput {
+            background-color: #ababab;
+            padding: 10px;
+            border: none;
+            margin-top: 25px;
+            font-size: 17px;
+            color: black;
+            margin-bottom: 20px;
+        }
+
+        .textinput:focus {
+            background-color: grey;
+        }
+
+        ::-webkit-input-placeholder {
+            text-align: center;
+        }
+    </style>
+</head>
+<script>
+    var AccessToken = localStorage.getItem('AccessToken');
+    var data;
+    var data1;
+    var data2;
+    var data3;
+    var loadArray = [];
+    var listingArray = [];
+    function callback(response) {//decodeToken
+        data = response;
+    }
+    function callback1(response) {//GET listings
+        data1 = response;
+    }
+    function callback2(response) {//GET listing author
+        data2 = response;
+        return data2;
+    }
+    function callback3(response) {//GET user's likes
+        data3 = response;
+    }
+    function callback4(response) {//GET user's likes
+        data4 = response;
+    }
+    function LoadLike(listingid, userid) {//load's likes
+        for (var q = 0; listingid.length > q; q++) {
+            if (listingid[q].fk_liker_id == userid.user_id) {
+
+                return './Pic/likedheart.png'
+            }
+        }
+
+        return './Pic/heart.png'
+    }
+    function getUsername(userid) {//loads usernames
+        $.ajax({
+            async: false,
+            url: 'http://dongen:80/users/' + userid,
+            headers: {
+                'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
+            },
+            type: 'GET',
+            success: function (response) {
+                //console.log(response[0].username)
+                callback2(response[0].username)
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log('Error in Operation');
+                console.log(errorThrown)
+            },
+        })
+    }
+    function Like(id) {//Like+Dislike handling
+
+        if ($("#heart").attr("src") == `./Pic/heart.png`) {
+
+            $.ajax({//call ajax to like and update db
+                async: false,
+                url: 'http://dongen:80/like/' + id,
+                type: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
+                },
+                success: function (response) {
+                    console.log(response)
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log('Error in Operation');
+                    console.log(errorThrown)
+                },
+            })
+
+            $("#heart").attr("src", "./Pic/likedheart.png")//like 
+        } else {
+
+            $.ajax({//call ajax to like and update db
+                async: false,
+                url: 'http://dongen:80/dislike/' + id,
+                type: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
+                },
+                success: function (response) {
+                    console.log(response)
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log('Error in Operation');
+                    console.log(errorThrown)
+                },
+            })
+
+            $("#heart").attr("src", "./Pic/heart.png")//dislike
+
+        }
+    }
+    $(document).ready(function () {
+        var AccessToken = localStorage.getItem('AccessToken');
+        if (AccessToken == null) {
+            $.ajax({
+                async: false,
+                url: 'http://dongen:80/listings/' + localStorage.getItem('listid'),
+                type: 'GET',
+                success: function (response) {
+                    callback1(response)
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log('Error in Operation');
+                    console.log(errorThrown)
+                },
+            })
+            $.ajax({
+                async: false,
+                url: 'http://dongen:80/likes/listing/' + localStorage.getItem('listid'),
+                type: 'GET',
+                success: function (response) {
+                    callback3(response)
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log('Error in Operation');
+                    console.log(errorThrown)
+                },
+            })
+           
+            $(".active").append("Log In")
+            $('.nav').empty()
+            $("#PFP").attr("src", "http://dongen:80/Pic/Placehoolder.png");
+            $(".listingImg").attr("src", 'http://dongen:80/listings/photo/' + data1[0].id)
+            $('.title').append(data1[0].title)
+            $('.description').append(data1[0].description)
+            $('.author').append(data2)
+            $('.likes').append(data3.length + " Likes")
+            $('.price').append("$" + data1[0].price)
+            $('#heart').attr('src','./Pic/heart.png')
+            $('#heartLink').attr('onclick','alert("Guests cannot like listings");return false')
+            $('#AddOffer').attr('onclick','alert("Guests cannot send offers");return false')
+        } else {
+            $.ajax({
+                async: false,
+                url: 'http://dongen:80/decodeToken',
+                type: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
+                },
+                success: function (response) {
+                    callback(response)
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log('Error in Operation');
+                    console.log(errorThrown)
+                },
+            })
+            $.ajax({
+                async: false,
+                url: 'http://dongen:80/listings/' + localStorage.getItem('listid'),
+                type: 'GET',
+                success: function (response) {
+                    callback1(response)
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log('Error in Operation');
+                    console.log(errorThrown)
+                },
+            })
+            $.ajax({
+                async: false,
+                url: 'http://dongen:80/users/' + data.user_id,
+                type: 'GET',
+                success: function (response) {
+                    callback4(response)
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log('Error in Operation');
+                    console.log(errorThrown)
+                },
+            })
+            $.ajax({
+                async: false,
+                url: 'http://dongen:80/likes/listing/' + localStorage.getItem('listid'),
+                type: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + JSON.parse(AccessToken).token
+                },
+                success: function (response) {
+                    callback3(response)
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log('Error in Operation');
+                    console.log(errorThrown)
+                },
+            })
+            var Submit = true;
+
+            $("#PFP").attr("src", "http://dongen:80/users/PFP/" + data.user_id + "/");
+            $("#heart").attr("src", LoadLike(data3, data))
+            $(".active").append(data4[0].username)
+            getUsername(data1[0].fk_user_id)
+            $('.active').click(function (event) {
+                window.location = "http://dongen:81/profile";
+            })
+            $(".listingImg").attr("src", 'http://dongen:80/listings/photo/' + data1[0].id)
+            $('.title').append(data1[0].title)
+            
+            $('.description').append(data1[0].description)
+            $('.author').append(data2)
+            $('.likes').append(data3.length + " Likes")
+            $('.price').append("$" + data1[0].price)
+            if (data1[0].fk_user_id == data4[0].user_id) {// if is author
+                $('#AddOffer').empty()
+                $('#AddOffer').append("Edit Listing")
+                $('#AddOffer').click(function (event) {
+                    window.location = "http://dongen:81/EditListing"; //Link to edit listing
+                })
+            } else {
+                $('#AddOffer').click(function (event) {//if is not author
+                    if (Submit) {
+                        $('#AddOffer').empty()
+                        $('#AddOffer').append("Submit Offer")
+                        $('.offer').append('<input size=5 type="text" id="textinput" class="textinput" placeholder="Offer" autocomplete="off">')
+                        Submit = !Submit
+                    } else {
+                        var offer = $('#textinput').val();
+                        if (isNaN(offer)) {
+                            alert('Please enter a valid Number')
+                        } else {
+                            var id = data.user_id
+                            console.log(data1[0].id)
+                            $.ajax({
+                                async: false,
+                                url: 'http://dongen:80/listings/' + data1[0].id + '/offers/',
+                                type: 'POST',
+                                data: {
+                                    offer: offer,
+                                    fk_offeror_id: id
+                                },
+                                headers: {
+                                    'Authorization': 'Bearer ' + JSON.parse(AccessToken).token,
+                                    contentType: 'application/x-www-form-urlencoded',
+                                },
+                                success: function (response) {
+                                    console.log(response)
+                                },
+                                error: function (xhr, textStatus, errorThrown) {
+                                    console.log('Error in Operation');
+                                    console.log(errorThrown)
+                                },
+                            })
+                            alert('Offer Submitted')
+                            window.location = "http://dongen:81/listing";
+                        }
+                    }
+                })
+            }
+        }
+    })
+</script>
+
+<body>
+    <div class="topnav">
+        <img id="PFP" src="" alt="Profile Picture" style="width: 48px;height:48px;margin-right:3px;margin-left:3px">
+        <a class="active" href="http://dongen:81/profile"></a>
+        <a class='nav' href="http://dongen:81/login" onclick="localStorage.removeItem('AccessToken')" style="float:right"> Log Out</a>
+        <a class='nav' id="Listing" href="http://dongen:81/SelfListing">My Listings</a>
+        <a class='nav' href="http://dongen:81/Offers">My Offers</a>
+        <a class='nav' href="http://dongen:81/LikedListings">Liked posts</a>
+        <a href="http://dongen:81/listing" style="margin-left:10px;background-color:#9d6600">Listings</a>
+        <a href="http://dongen:81/NewListing" >+</a>
+        <a class='nav' href="#Contact" style="float:right">Contact us</a>
+    </div>
+    <div id="wrapper" style="padding-left:16px;padding-top:30px;justify-content: center">
+        <div class='node' id='node'>
+            <img src='' class='listingImg'>
+            <div class='BotWrapper'>
+                <div class='TextWrapper'>
+                    <div class='title'>
+                    </div>
+                    <div class='description'>
+                    </div>
+                    <div class='AuthorNPrice'>
+                        <div class='author'>
+
+                        </div>
+                        <div class='price'>
+
+                        </div>
+
+                        <div class='offer'>
+
+                        </div>
+                        <div class='likes'>
+
+                        </div>
+                        <a id='heartLink' href='#' onclick='Like(data1[0].id);return false;'>
+                            <img id='heart' src="">
+                        </a>
+                        <a id='AddOffer' href='#'>
+                            Send Offer
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+</body>
+
+</html>
